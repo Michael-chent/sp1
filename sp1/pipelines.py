@@ -10,7 +10,6 @@ from . import settings
 
 class Sp1Pipeline(object):
     def process_item(self, item, spider):
-        print(item)
         response = requests.get(item['url'],stream=True)
         file_name=os.path.join(settings.FILE_PATH,"%s.jpg"%item['name'])
         print("@#$",response,file_name)
