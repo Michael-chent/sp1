@@ -14,6 +14,13 @@ BOT_NAME = 'sp1'
 SPIDER_MODULES = ['sp1.spiders']
 NEWSPIDER_MODULE = 'sp1.spiders'
 
+DEPTH_LIMIT = 1
+
+FILE_PATH = "F:\项目\爬虫相关\day1\picture"
+
+ITEM_PIPELINES = {
+    'sp1.pipelines.Sp1Pipeline': 300,
+}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'sp1 (+http://www.yourdomain.com)'
