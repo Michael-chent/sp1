@@ -12,7 +12,7 @@ class Sp1Pipeline(object):
     def process_item(self, item, spider):
         response = requests.get(item['url'],stream=True)
         file_name=os.path.join(settings.FILE_PATH,"%s.jpg"%item['name'])
-        print("@#$",response,file_name)
+        # print("@#$",response,file_name)
         with open(file_name,mode='wb') as f:
             f.write(response.content)
         return item
