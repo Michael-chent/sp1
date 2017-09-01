@@ -21,30 +21,28 @@ class JiandanSpider(scrapy.Spider):
         # 推荐
         hxs = Selector(response=response)
         comment_list = hxs.xpath('//ol[@class="commentlist"]')
-        name = 1
+
         for item in comment_list:
             img_list = item.xpath('.//img')
             for img in img_list:
                 src = img.xpath('@src').extract_first()
                 if re.search(r'\w+.jpg$',src):
                     url="http:%s"%src
-                    # print("*****", url)
+                    page = hxs.xpath('//div[@class="cp-pagenavi"]/span/text()').extract_first()[1:-1]
+                    name = "%s-%s"%(page,url[-9:])
                     from ..items import Sp1Item
-                    obj = Sp1Item(name=name,url=url)
-                    name += 1
+                    obj = Sp1Item(url=url,name=name)
                     yield obj
 
-        page_urls = hxs.xpath('//div[@class="comments"]//a[re:test(@href,"http://jandan.net/ooxx/page-\d+#comments")]/@href').extract()
-        # print(page_urls)
+        page_urls = set(hxs.xpath('//div[@class="cp-pagenavi"]/a[re:test(@href,"http://jandan.net/ooxx/page-\d+#comments")]/@href').extract())
         # 规则
         for url in page_urls:
             key = self.md5(url)
             if key in self.has_request_set:
-                pass
+                continue
             else:
                 self.has_request_set[key] = url
-                req = Request(url=url,method='GET',callback=self.parse)
-                yield req
+                yield Request(url=url,method='GET',callback=self.parse)
 
     @staticmethod
     def md5(val):

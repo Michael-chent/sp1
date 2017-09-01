@@ -14,13 +14,11 @@ BOT_NAME = 'sp1'
 SPIDER_MODULES = ['sp1.spiders']
 NEWSPIDER_MODULE = 'sp1.spiders'
 
-DEPTH_LIMIT = 1
+DEPTH_LIMIT = 10
 
 FILE_PATH = "F:\项目\爬虫相关\day1\picture"
 
-ITEM_PIPELINES = {
-    'sp1.pipelines.Sp1Pipeline': 300,
-}
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'sp1 (+http://www.yourdomain.com)'
@@ -71,9 +69,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'sp1.pipelines.Sp1Pipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'sp1.pipelines.Sp1Pipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
